@@ -38,6 +38,7 @@ class ApiModule {
     @Singleton
     @Provides
     fun gson(): Gson = GsonBuilder()
+        .excludeFieldsWithoutExposeAnnotation()
         .create()
 
 

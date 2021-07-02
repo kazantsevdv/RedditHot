@@ -18,7 +18,7 @@ import javax.inject.Provider
 
 
 class RedditFragment : Fragment() {
-        @Inject
+    @Inject
     lateinit var viewModeProvider: Provider<RadditViewModel.Factory>
 
     private val viewModel: RadditViewModel by viewModels { viewModeProvider.get() }
@@ -78,24 +78,17 @@ class RedditFragment : Fragment() {
                 })
 
             )
-
-
-
-
-
+        viewBinding.refresh.setOnRefreshListener { adapter.refresh() }
         loadStateRefresh()
-
-        viewBinding.retry.setOnClickListener { adapter.refresh() }
     }
+
 
     private fun loadStateRefresh() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collectLatest { loadStates ->
                 val refresh = loadStates.refresh
-                viewBinding.progress.isVisible = loadStates.refresh is LoadState.Loading
-                viewBinding.retry.isVisible = refresh is LoadState.Error
+                viewBinding.refresh.isRefreshing = loadStates.refresh is LoadState.Loading
                 if (refresh is LoadState.Error) {
-
                     Snackbar.make(
                         viewBinding.root,
                         refresh.error.localizedMessage ?: "",

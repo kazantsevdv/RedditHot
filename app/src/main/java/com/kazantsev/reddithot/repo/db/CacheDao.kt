@@ -13,25 +13,27 @@ abstract class CacheDao {
     @Query("SELECT * FROM PageKey")
     abstract suspend fun getPageKeys(): List<PageKey>
 
-    @Query(
-        "DELETE  FROM PageKey"
-    )
+    @Query("DELETE  FROM PageKey")
     abstract suspend fun deleteAllKey()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insertPosts(posts: List<Post>)
 
     @Query("SELECT * FROM Post")
-    abstract fun getPosts(): PagingSource<Int, Post>
+    abstract  fun getPosts(): PagingSource<Int, Post>
 
-    @Query(
-        "DELETE  FROM Post"
-    )
-    abstract suspend fun deleteAll()
+    @Query("DELETE  FROM Post")
+    abstract suspend fun deleteAllPosts()
 
     @Transaction
     open suspend fun insertPostAndKey(pageKey: PageKey, posts: List<Post>) {
         insertKey(pageKey)
         insertPosts(posts)
+    }
+
+    @Transaction
+    open suspend  fun deleteAll() {
+        deleteAllPosts()
+        deleteAllKey()
     }
 }

@@ -14,7 +14,7 @@ class RedditRepoImp(private val api: DataSource, private val db: CacheDatabase) 
     @ExperimentalPagingApi
     override fun getPosts(): Flow<PagingData<Post>> {
         return Pager(
-            PagingConfig(pageSize = 20),
+            PagingConfig(pageSize = 20, enablePlaceholders = false,prefetchDistance = 3),
             remoteMediator = PostRemoteMediator(api, db),
             pagingSourceFactory = { db.dao.getPosts() }
         ).flow

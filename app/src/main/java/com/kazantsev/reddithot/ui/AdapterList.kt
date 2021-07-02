@@ -49,7 +49,7 @@ class AdapterList() :
         }
 
         override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
-            return oldItem.name == newItem.name && oldItem.score == newItem.score
+            return oldItem.title == newItem.title && oldItem.score == newItem.score
                     && oldItem.num_comments == newItem.num_comments
         }
 

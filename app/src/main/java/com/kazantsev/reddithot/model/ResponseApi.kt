@@ -1,5 +1,7 @@
 package com.kazantsev.reddithot.model
 
+import com.google.gson.annotations.Expose
+
 class ResponseApi(
-    val data:ResponseData
+    @Expose val data:ResponseData
 )

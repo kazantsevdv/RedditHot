@@ -17,7 +17,7 @@ class LoaderStateAdapter(
     private lateinit var bindingItem: ItemLoadStateBinding
 
     override fun onBindViewHolder(holder: ItemViewHolder, loadState: LoadState) {
-
+        bindingItem.progress.isVisible = loadState is LoadState.Loading
         bindingItem.loadStateRetry.isVisible = loadState is LoadState.Error
 
         bindingItem.loadStateRetry.setOnClickListener {

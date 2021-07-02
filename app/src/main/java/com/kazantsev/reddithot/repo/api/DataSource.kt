@@ -10,8 +10,7 @@ interface DataSource {
     @GET("hot.json")
     suspend fun getPost(
         @Query("limit") limit: Int = 0,
-        @Query("after") after: String? = null,
-        @Query("before") before: String? = null
+        @Query("after") after: String? = null
     ): Response<ResponseApi>
 
 }
