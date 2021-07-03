@@ -27,8 +27,6 @@ class PostRemoteMediator(
 
     private suspend fun append(state: PagingState<Int, Post>): MediatorResult {
 
-        state.pages.lastOrNull()
-            ?: return MediatorResult.Success(endOfPaginationReached = true)
         return try {
             val postKey = db.dao.getPageKeys().lastOrNull()
             val apiResponse =
